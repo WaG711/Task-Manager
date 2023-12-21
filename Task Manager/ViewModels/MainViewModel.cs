@@ -11,7 +11,8 @@ namespace Task_Manager.ViewModels
         private Task _selectedTask;
         private ObservableCollection<Task> _tasks;
         private ObservableCollection<Task> _completedTasks;
-        private readonly ObservableCollection<Task> _lastTwoDeletedTasks = new ObservableCollection<Task>();
+        private readonly ObservableCollection<Task> _lastDeletedTasks = new ObservableCollection<Task>();
+        private readonly byte _maxQueue = 3;
 
         public MainViewModel(IRepository repository)
         {
@@ -68,12 +69,12 @@ namespace Task_Manager.ViewModels
             {
                 Tasks.Remove(task);
                 task.IsCompleted = true;
-                _lastTwoDeletedTasks.Add(task);
+                _lastDeletedTasks.Add(task);
 
-                if (_lastTwoDeletedTasks.Count > 2)
+                if (_lastDeletedTasks.Count > _maxQueue)
                 {
-                    CompletedTasks.Remove(_lastTwoDeletedTasks.First());
-                    _lastTwoDeletedTasks.RemoveAt(0);
+                    CompletedTasks.Remove(_lastDeletedTasks.First());
+                    _lastDeletedTasks.RemoveAt(0);
                 }
 
                 CompletedTasks.Add(task);
@@ -87,6 +88,12 @@ namespace Task_Manager.ViewModels
             _taskRepository.Delete(task.Id);
         }
 
-        private void OpenCreateTaskWindow(object parameter) { }
+        private void OpenCreateTaskWindow(object parameter)
+        {
+            var createTaskViewModel = new CreateViewModel(_taskRepository);
+            var createTaskWindow = new CreateWindow(_taskRepository);
+            createTaskWindow.DataContext = createTaskViewModel;
+            createTaskWindow.ShowDialog();
+        }
     }
 }
