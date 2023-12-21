@@ -38,7 +38,7 @@ namespace Task_Manager.DataBase
 
         public IEnumerable<Task> GetAll()
         {
-            return _context.Tasks.ToList();
+            return _context.Tasks.OrderByDescending(task => task.CreationDate).ToList();
         }
 
         private void SaveChanges()

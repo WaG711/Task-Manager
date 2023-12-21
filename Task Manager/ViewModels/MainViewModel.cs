@@ -2,6 +2,7 @@
 using System.Windows.Input;
 using System.Windows;
 using Task_Manager.DataBase;
+using GalaSoft.MvvmLight.Messaging;
 
 namespace Task_Manager.ViewModels
 {
@@ -20,12 +21,14 @@ namespace Task_Manager.ViewModels
             Tasks = new ObservableCollection<Task>(repository.GetAll());
             CompletedTasks = new ObservableCollection<Task>();
 
-            OpenCreateTaskWindowCommand = new RelayCommand(OpenCreateTaskWindow);
+            OpenCreateWindowCommand = new RelayCommand(OpenCreateWindow);
             DeleteTaskCommand = new RelayCommand(DeleteTask);
+
+            Messenger.Default.Register<Task>(this, HandleNewTaskMessage);
         }
 
         public ICommand DeleteTaskCommand { get; }
-        public ICommand OpenCreateTaskWindowCommand { get; }
+        public ICommand OpenCreateWindowCommand { get; }
         public ObservableCollection<Task> CompletedTasks
         {
             get => _completedTasks;
@@ -88,7 +91,13 @@ namespace Task_Manager.ViewModels
             _taskRepository.Delete(task.Id);
         }
 
-        private void OpenCreateTaskWindow(object parameter)
+        private void HandleNewTaskMessage(Task newTask)
+        {
+            Tasks.Add(newTask);
+            _taskRepository.Add(newTask);
+        }
+
+        private void OpenCreateWindow(object parameter)
         {
             var createTaskViewModel = new CreateViewModel(_taskRepository);
             var createTaskWindow = new CreateWindow(_taskRepository);

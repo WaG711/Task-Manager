@@ -1,6 +1,7 @@
 ﻿using System.Windows.Input;
 using System.Windows;
 using Task_Manager.DataBase;
+using GalaSoft.MvvmLight.Messaging;
 
 namespace Task_Manager.ViewModels
 {
@@ -37,7 +38,7 @@ namespace Task_Manager.ViewModels
                 if (!string.IsNullOrEmpty(TaskText))
                 {
                     var newTask = new Task { Text = TaskText, CreationDate = DateTime.Now, IsCompleted = false };
-                    _taskRepository.Add(newTask);
+                    Messenger.Default.Send(newTask);
                     window.Close();
                 }
                 else

@@ -14,7 +14,7 @@
         </Grid.RowDefinitions>
 
         <StackPanel Grid.Row="0" Orientation="Horizontal" Margin="5">
-            <Button Content="Создать задачу" Command="{Binding OpenCreateTaskWindowCommand}" HorizontalAlignment="Left" VerticalAlignment="Top">
+            <Button Content="Создать задачу" Command="{Binding OpenCreateWindowCommand}" HorizontalAlignment="Left" VerticalAlignment="Top">
                 <Button.Style>
                     <Style TargetType="Button">
                         <Setter Property="Margin" Value="5" />
@@ -52,7 +52,7 @@
                 <DataTemplate>
                     <StackPanel>
                         <TextBlock Text="{Binding Text}" FontWeight="Normal" VerticalAlignment="Center" />
-                        <TextBlock Text="{Binding CreationDate}" FontWeight="Bold" VerticalAlignment="Center" />
+                        <TextBlock Text="{Binding CreationDate, StringFormat='MM.dd HH:mm:s' }" FontWeight="Bold" VerticalAlignment="Center" />
                     </StackPanel>
                 </DataTemplate>
             </ListBox.ItemTemplate>
@@ -64,7 +64,7 @@
                     <DataTemplate>
                         <StackPanel>
                             <TextBlock Text="{Binding Text}" FontWeight="Normal" VerticalAlignment="Center" />
-                            <TextBlock Text="{Binding CreationDate}" FontWeight="Bold" VerticalAlignment="Center" />
+                            <TextBlock Text="{Binding CreationDate, StringFormat='MM.dd HH:mm:s'}" FontWeight="Bold" VerticalAlignment="Center" />
                         </StackPanel>
                     </DataTemplate>
                 </ListBox.ItemTemplate>
