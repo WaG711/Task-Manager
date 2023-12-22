@@ -1,4 +1,6 @@
-﻿namespace Task_Manager.DataBase
+﻿using Task = Task_Manager.Model.Task;
+
+namespace Task_Manager.DataBase
 {
     public interface IRepository
     {

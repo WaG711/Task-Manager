@@ -2,6 +2,7 @@
 using System.Windows;
 using Task_Manager.DataBase;
 using GalaSoft.MvvmLight.Messaging;
+using Task = Task_Manager.Model.Task;
 
 namespace Task_Manager.ViewModels
 {

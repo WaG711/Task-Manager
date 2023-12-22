@@ -1,4 +1,4 @@
-﻿namespace Task_Manager
+﻿namespace Task_Manager.Model
 {
     public class Task
     {
